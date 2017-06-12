@@ -18,12 +18,11 @@
 <script>
     $(function() {
         $('.btn').on('click', function() {
-            const tit = $('tit').val();
-            const txt = $('txt').val();
-            if (tit == "" || txt == "") {
-                alert("请填写完整");
-                return;
-            } else {
+            const tit = $('.tit').val();
+            const txt = $('.txt').val();
+            if (tit != "" && txt != "") {
+                console.log(tit);
+                console.log(txt);
                 $.ajax({
                     url: '/add',
                     type: 'post',
@@ -38,6 +37,9 @@
                         }
                     }
                 })
+            } else {
+                alert("请填写完整");
+                return;
             }
         })
     })
