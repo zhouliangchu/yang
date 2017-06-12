@@ -9,11 +9,10 @@ router.get('/detail', function(req, res) {
         for (var i in result) {
             if (result[i].id == req.query.id) {
                 res.render('detail', {
-                    num: result[i].content
+                    data: result[i].content
                 })
             }
         }
-
     })
 })
 

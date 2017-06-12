@@ -30,6 +30,11 @@
             height: 30px;
             margin-top: 10px;
         }
+        
+        i {
+            color: blueviolet;
+            margin-left: 80px;
+        }
     </style>
 </head>
 
@@ -41,6 +46,7 @@
                 <li>
                     <span><%=num[i].id%></span>
                     <%=num[i].title%>
+                        <i><%=num[i].num%></i> 次浏览
                 </li>
                 <% } %>
         </ul>
@@ -51,14 +57,32 @@
     <script src="/jquery1.7.js"></script>
     <script>
         $(function() {
+
             $('li').on('click', function() {
                 const ID = $(this).find('span').text();
+                var Num = Number($(this).find('i').text());
+                Num++;
                 $.ajax({
                     url: '/detail?id=' + ID + '',
                     success: function(data) {
-                        location.href = '/detail?id=' + ID + '';
+                        window.location.reload();
+                        $.ajax({
+                            url: '/update',
+                            type: 'post',
+                            data: {
+                                id: ID,
+                                num: Num
+                            },
+                            success: function(msg) {
+                                if (msg.code == 0) {
+
+                                    location.href = '/detail?id=' + ID + '';
+                                }
+                            }
+                        })
                     }
                 })
+
             })
 
             $('.btn').on('click', function() {
