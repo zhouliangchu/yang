@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <div>
+        <input type="text" class="tit" placeholder="请填写文章名称"><br>
+        <textarea rows="30" cols="100" class="txt"></textarea><br>
+        <button class="btn">发表</button>
+    </div>
+</body>
+<script src="/jquery1.7.js"></script>
+<script>
+    $(function() {
+        $('.btn').on('click', function() {
+            const tit = $('tit').val();
+            const txt = $('txt').val();
+            if (tit == "" || txt == "") {
+                alert("请填写完整");
+                return;
+            } else {
+                $.ajax({
+                    url: '/add',
+                    type: 'post',
+                    data: {
+                        tit: tit,
+                        txt: txt
+                    },
+                    success: function(msg) {
+                        if (msg.code == 0) {
+                            window.location.reload();
+                            location.href = '/';
+                        }
+                    }
+                })
+            }
+        })
+    })
+</script>
+
+</html>
